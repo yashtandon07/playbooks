@@ -1,0 +1,23 @@
+- name: Updating server code and starting the service.
+  hosts: all
+  tasks:
+    - command: git checkout master
+      args:
+        chdir: "{{ path }}"
+
+
+    - git:
+        repo: ssh://yashtandon@bitbucket.org/girnarsoftware/connecto.git
+        dest: /media/disk1/sandbox/connecto/ 
+        update: yes
+        version: master
+        accept_hostkey: yes
+        key_file: /home/yash/.ssh/id_rsa      
+   
+
+    - command: npm install
+      args:
+        chdir: "{{ path }}/node_modules"
+    
+
+    - command: sudo service "{{ service_name }}" restart
