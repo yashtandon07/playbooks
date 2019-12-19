@@ -4,7 +4,6 @@
   become: yes
   vars: 
     repo_dir: /media/disk1/sandbox/connecto
-    microservices: ['api','ui','jobs','kafka','lib','push','ui','dumps','analytics']
   tasks:
     - name: Stopping nginx service
       service: 
@@ -38,7 +37,8 @@
       command: npm install
       args:
         chdir: "{{ path }}/node_modules"
-   
+
+
     - name: Running npm install in lib directory as well
       command: npm install
       when: flag | default (false)
@@ -52,6 +52,7 @@
       service: 
         name: "{{ service_name }}"
         state: restarted
+
 
     - name: Restarting the nginx service
       service:
