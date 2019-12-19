@@ -1,0 +1,18 @@
+- hosts: all
+  vars:
+    test: "This single line should be split based on white space"
+  tasks:
+     - debug:
+          msg: "{{ test.split()[0] }} {{ test.split()[1] }}"
+          
+
+          #  - name: Running npm install in other directories
+          # command: npm install
+          #when: flag | default (false)
+          #args:
+          # chdir: "{{ item }}"
+          #loop:
+          #- /media/disk1/sandbox/connecto/ui 
+         
+          # - /media/disk1/sandbox/connecto/api
+
