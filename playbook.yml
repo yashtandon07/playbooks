@@ -1,23 +1,59 @@
-- name: Updating server code and starting the service.
+- name: Updating "{{ service_name  }}" server codebase and starting its service.
   hosts: all
+  remote_user: yash
+  become: yes
+  vars: 
+    repo_dir: /media/disk1/sandbox/connecto
+    microservices: ['api','ui','jobs','kafka','lib','push','ui','dumps','analytics']
   tasks:
-    - command: git checkout master
+    - name: Stopping nginx service
+      service: 
+        name: nginx
+        state: stopped
+
+
+    - name: Performing git checkout in the specified directory "{{ path  }}"
+      command: git checkout .
       args:
         chdir: "{{ path }}"
 
 
-    - git:
+    - name: switching branch to master branch
+      command: git checkout master
+      args:
+        chdir: "{{ path }}"
+
+
+    - name: Taking pull from bitbucket master branch
+      git:
         repo: ssh://yashtandon@bitbucket.org/girnarsoftware/connecto.git
-        dest: /media/disk1/sandbox/connecto/ 
+        dest: "{{ repo_dir }}" 
         update: yes
         version: master
         accept_hostkey: yes
         key_file: /home/yash/.ssh/id_rsa      
    
 
-    - command: npm install
+    - name: Running npm install in directory "{{ path }}"
+      command: npm install
       args:
         chdir: "{{ path }}/node_modules"
-    
+   
+    - name: Running npm install in lib directory as well
+      command: npm install
+      when: flag | default (false)
+      args:
+        chdir: "{{ item }}"
+      loop:
+         - "{{ repo_dir }}/lib"
 
-    - command: sudo service "{{ service_name }}" restart
+
+    - name: Restarting the "{{ service_name }}" service
+      service: 
+        name: "{{ service_name }}"
+        state: restarted
+
+    - name: Restarting the nginx service
+      service:
+        name: nginx
+        state: restarted
