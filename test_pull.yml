@@ -1,0 +1,13 @@
+- name: Testing Only.
+  hosts: all
+  remote_user: connecto
+  become: yes
+
+    - name: Taking pull from bitbucket master branch
+      git:
+        repo: ssh://yashtandon@bitbucket.org/girnarsoftware/connecto.git
+        dest: /data/codebase/connecto
+        update: yes
+        version: master
+        accept_hostkey: yes
+        key_file: /home/connecto/.ssh/id_rsa
