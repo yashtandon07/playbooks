@@ -1,6 +1,14 @@
 - name: Testing Only.
   hosts: all
+  remote_user: abhinav
+  become: yes
   tasks:
+
+    - name: stopping nginx service
+      service: 
+        name: nginx
+        state: stopped
+
     - name: Taking pull from bitbucket master branch
       git:
         repo: ssh://bitbucket.org/girnarsoftware/connecto.git
@@ -11,3 +19,8 @@
         key_file: /home/connecto/.ssh/id_rsa
       become_user: connecto
       become: yes
+
+   - name: starting nginx service
+     service: 
+        name: nginx
+        state: restarted
