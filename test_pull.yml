@@ -1,7 +1,5 @@
 - name: Testing Only.
   hosts: all
-  remote_user: connecto
-  become: yes
   tasks:
     - name: Taking pull from bitbucket master branch
       git:
