@@ -4,12 +4,12 @@
   become: yes
   tasks:
 
-    - name: stopping nginx service
+   - name: stopping nginx service
       service: 
         name: nginx
         state: stopped
 
-    - name: Taking pull from bitbucket master branch
+   - name: Taking pull from bitbucket master branch
       git:
         repo: ssh://bitbucket.org/girnarsoftware/connecto.git
         dest: /data/codebase/connecto
