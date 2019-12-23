@@ -17,8 +17,8 @@
         version: master
         accept_hostkey: yes
         key_file: /home/connecto/.ssh/id_rsa
-      become_user: connecto
-      become: yes
+     become_user: connecto
+     become: yes
 
    - name: starting nginx service
      service: 
