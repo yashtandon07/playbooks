@@ -1,6 +1,6 @@
 - hosts: all
   vars:
-    test: "This single line should be split based on white space"
+    test: "Test Successfull"
   tasks:
      - debug:
           msg: "{{ test.split()[0] }} {{ test.split()[1] }}"
