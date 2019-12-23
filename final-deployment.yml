@@ -41,8 +41,7 @@
      args:
         chdir: "{{ item }}"
      loop:
-        - "{{ repo_dir }}/lib"
-        - "{{ path }}"
+        - /data/codebase/connecto/api
      become_user: connecto
      become: yes
 
