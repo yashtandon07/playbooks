@@ -39,9 +39,7 @@
    - name: Running npm install in directory "{{ path }} and {{ repo_dir }}/lib as well"
      command: npm install
      args:
-        chdir: "{{ item }}"
-     loop:
-        - /data/codebase/connecto/api
+        chdir: /data/codebase/connecto/api
      become_user: connecto
      become: yes
 
