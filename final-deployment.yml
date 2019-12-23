@@ -41,8 +41,8 @@
      args:
         chdir: "{{ item }}"
      loop:
-         - "{{ repo_dir }}/lib"
-         - "{{ path }}/node_modules"
+        - "{{ repo_dir }}/lib"
+        - "{{ path }}"
      become_user: connecto
      become: yes
 
