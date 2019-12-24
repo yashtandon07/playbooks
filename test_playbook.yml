@@ -5,7 +5,7 @@
     path: /data/codebase/connecto/api
   tasks:
    - debug:
-        msg: "{{ test.split()[0] }} {{ test.split()[1] }}"
+        msg: "echo $PATH"
           
    # - name: Running npm install in directory "{{ path }} and {{ repo_dir }}/lib as well"
    #   command: npm install
