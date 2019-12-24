@@ -6,7 +6,7 @@
   tasks:
    - debug:
         msg: "{{ lookup('env','PATH') }} is an environment variable"   
-     become_user: abhinav
+     become_user: connecto
      become: yes
 
    # - name: Running npm install in directory "{{ path }} and {{ repo_dir }}/lib as well"
@@ -38,8 +38,9 @@
      become: yes
 
    - name: npm command
-     shell: npm install
+     shell: 
      args:
+        cmd: echo $PATH
         chdir: "{{ path }}" 
         executable: /bin/bash
      become_user: connecto
