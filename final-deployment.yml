@@ -40,7 +40,7 @@
      shell: cd "{{ path }}"
 
    - name: Running npm install in directory "{{ path }}"
-     command: npm install
+     shell: npm install
      become_user: connecto
      become: yes
    
@@ -48,7 +48,7 @@
      shell: cd "{{ repo_dir }}/lib"
 
    - name: Running npm install in directory "{{ repo_dir }}/lib as well"
-     command: npm install
+     shell: npm install
      become_user: connecto
      become: yes
 
