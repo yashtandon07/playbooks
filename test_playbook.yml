@@ -3,11 +3,13 @@
     test: "Test Successfull"
     repo_dir: /data/codebase/connecto
     path: /data/codebase/connecto/api
+  remote_user: connecto
+  become: yes
   tasks:
    - debug:
-        msg: "{{ lookup('env','PATH') }} is an environment variable"
-     become_user: connecto
-     become: yes   
+
+     become: yes
+        msg: "{{ lookup('env','PATH') }} is an environment variable"   
           
    # - name: Running npm install in directory "{{ path }} and {{ repo_dir }}/lib as well"
    #   command: npm install
@@ -19,18 +21,29 @@
    #   become_user: yash
    #   become: yes
   
+   - name: Taking pull from bitbucket master branch
+     git:
+        repo: ssh://bitbucket.org/girnarsoftware/connecto.git
+        dest: "{{ repo_dir }}"
+        update: yes
+        version: master
+        accept_hostkey: yes
+        key_file: /home/connecto/.ssh/id_rsa
+     #become_user: connecto
+     #become: yes
+
    - name: switching branch to master branch
      command: git checkout master
      args:
         chdir: "{{ path }}"
-     become_user: connecto
-     become: yes
+     #become_user: connecto
+     #become: yes
 
    - name: npm command
-     shell: echo $PATH
+     shell: npm install
      args:
         chdir: "{{ path }}" 
         executable: /bin/bash
-     become_user: connecto
-     become: yes
+     #become_user: connecto
+     #become: yes
 
