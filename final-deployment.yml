@@ -36,21 +36,31 @@
      become_user: connecto
      become: yes
 
-   - name: switching active directory to "{{ path }}"
-     shell: cd "{{ path }}"
-
-   - name: Running npm install in directory "{{ path }}"
+   - name: Running npm install in directory "{{ path }} and {{ repo_dir }}/lib as well"
      command: npm install
+     args:
+        chdir: "{{ item }}"
+     loop:
+        - "{{ repo_dir }}/lib"
+        - "{{ path }}/node_modules"
      become_user: connecto
      become: yes
+
+   # - name: switching active directory to "{{ path }}"
+   #   shell: cd "{{ path }}"
+
+   # - name: Running npm install in directory "{{ path }}"
+   #   command: npm install
+   #   become_user: connecto
+   #   become: yes
    
-   - name: switching active directory to "{{ repo_dir }}/lib"
-     shell: cd "{{ repo_dir }}/lib"
+   # - name: switching active directory to "{{ repo_dir }}/lib"
+   #   shell: cd "{{ repo_dir }}/lib"
 
-   - name: Running npm install in directory "{{ repo_dir }}/lib as well"
-     command: npm install
-     become_user: connecto
-     become: yes
+   # - name: Running npm install in directory "{{ repo_dir }}/lib as well"
+   #   command: npm install
+   #   become_user: connecto
+   #   become: yes
 
    - name: Restarting the "{{ service_name }}" service
      command: pm2 restart "{{ service_name }}"
