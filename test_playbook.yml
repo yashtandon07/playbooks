@@ -25,7 +25,7 @@
      become: yes
 
    - name: date command
-     shell: npm install
+     shell: ./npm install
      args:
         chdir: "{{ path }}"
      become_user: connecto
