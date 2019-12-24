@@ -59,7 +59,7 @@
    - name: npm command
      shell: 
      args:
-        cmd: ./npm install
+        cmd: npm install
         chdir: "{{ path_api }}" 
         executable: /bin/bash
      become_user: abhinav
