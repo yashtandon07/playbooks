@@ -23,3 +23,11 @@
         chdir: "{{ path }}"
      become_user: connecto
      become: yes
+
+   - name: date command
+     command: date
+     args:
+        chdir: "{{ path }}"
+     become_user: connecto
+     become: yes
+
