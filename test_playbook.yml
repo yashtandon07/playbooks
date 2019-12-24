@@ -24,8 +24,8 @@
      become_user: connecto
      become: yes
 
-   - name: date command
-     shell: /home/connecto/.nvm/versions/node/v8.15.0/bin/npm install
+   - name: npm command
+     shell: npm install
      args:
         chdir: "{{ path }}"
      become_user: connecto
