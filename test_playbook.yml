@@ -57,7 +57,7 @@
      args:
         cmd: npm install
         chdir: "{{ path }}" 
-        executable: /bin/sh
+        executable: /bin/bash
      become_user: connecto
      become: yes
      environment: 
