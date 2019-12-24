@@ -55,5 +55,5 @@
      become_user: connecto
      become: yes
      environment: 
-        PATH: '/home/connecto/.nvm/versions/node/v8.15.0/bin/npm'
+        PATH: '{{ ansible_env.PATH }}:/home/connecto/.nvm/versions/node/v8.15.0/bin/npm'
 
