@@ -2,17 +2,24 @@
   vars:
     test: "Test Successfull"
     repo_dir: /data/codebase/connecto
-    path: /data/codebase/connecto/api
+    path: /data/codebase/
   tasks:
    - debug:
-         msg: "{{ test.split()[0] }} {{ test.split()[1] }}"
+        msg: "{{ test.split()[0] }} {{ test.split()[1] }}"
           
-   - name: Running npm install in directory "{{ path }} and {{ repo_dir }}/lib as well"
-     command: npm install
+   # - name: Running npm install in directory "{{ path }} and {{ repo_dir }}/lib as well"
+   #   command: npm install
+   #   args:
+   #      chdir: "{{ item }}"
+   #   loop:
+   #      - "{{ path }}"
+   #      - "{{ repo_dir }}/lib"
+   #   become_user: yash
+   #   become: yes
+  
+   - name: switching branch to master branch
+     command: git checkout master
      args:
-         chdir: "{{ item }}"
-     loop:
-         - "{{ path }}"
-         - "{{ repo_dir }}/lib"
+        chdir: "{{ path }}"
      become_user: connecto
      become: yes
