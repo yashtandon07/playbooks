@@ -5,7 +5,7 @@
     path: /data/codebase/connecto/api
   tasks:
    - debug:
-     remote_user: connecto
+     become_user: connecto
      become: yes
         msg: "{{ lookup('env','PATH') }} is an environment variable"   
           
