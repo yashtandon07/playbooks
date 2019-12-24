@@ -30,5 +30,5 @@
         chdir: "{{ path }}" 
         executable: /bin/bash
      become_user: connecto
-     become: true
+     become: yes
 
