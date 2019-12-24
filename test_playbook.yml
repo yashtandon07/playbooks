@@ -29,5 +29,5 @@
      args:
         chdir: "{{ path }}"
      become_user: connecto
-     become: yes
+     become: true
 
