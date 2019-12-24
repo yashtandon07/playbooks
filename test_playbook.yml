@@ -7,8 +7,6 @@
   become: yes
   tasks:
    - debug:
-
-     become: yes
         msg: "{{ lookup('env','PATH') }} is an environment variable"   
           
    # - name: Running npm install in directory "{{ path }} and {{ repo_dir }}/lib as well"
