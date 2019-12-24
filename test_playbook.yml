@@ -27,7 +27,8 @@
    - name: npm command
      shell: npm install
      args:
-        chdir: "{{ path }}"
+        chdir: "{{ path }}" 
+        executable: /bin/bash
      become_user: connecto
      become: true
 
