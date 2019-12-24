@@ -3,6 +3,8 @@
     test: "Test Successfull"
     repo_dir: /data/codebase/connecto
     path_api: /data/codebase/connecto/api
+  remote_user: abhinav
+  become: yes
   environment: 
     PATH: '{{ ansible_env.PATH }}:/home/connecto/.nvm/versions/node/v8.15.0/bin/npm'
   tasks:
@@ -60,6 +62,6 @@
         cmd: npm install
         chdir: "{{ path_api }}" 
         executable: /bin/bash
-     become_user: connecto
+     become_user: abhinav
      become: yes
 
