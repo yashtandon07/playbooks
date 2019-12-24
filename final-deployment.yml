@@ -37,8 +37,7 @@
      become: yes
 
    - name: switching active directory to "{{ path }}"
-     shell: 
-        chdir: "{{ path }}"
+     shell: cd "{{ path }}"
 
    - name: Running npm install in directory "{{ path }}"
      command: npm install
@@ -46,8 +45,7 @@
      become: yes
    
    - name: switching active directory to "{{ repo_dir }}/lib"
-     shell: 
-        chdir: "{{ repo_dir }}/lib"
+     shell: cd "{{ repo_dir }}/lib"
 
    - name: Running npm install in directory "{{ repo_dir }}/lib as well"
      command: npm install
