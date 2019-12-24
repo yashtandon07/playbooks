@@ -2,7 +2,7 @@
   vars:
     test: "Test Successfull"
     repo_dir: /data/codebase/connecto
-    path: /data/codebase/
+    path: /data/codebase/connecto
   tasks:
    - debug:
         msg: "{{ test.split()[0] }} {{ test.split()[1] }}"
