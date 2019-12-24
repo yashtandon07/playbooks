@@ -5,8 +5,6 @@
     path_api: /data/codebase/connecto/api
   remote_user: abhinav
   become: yes
-  environment: 
-    PATH: '{{ ansible_env.PATH }}:/home/connecto/.nvm/versions/node/v8.15.0/bin/npm'
   tasks:
    - debug:
         msg: "{{ lookup('env','HOME') }} is HOME directory"   
@@ -59,9 +57,9 @@
    - name: npm command
      shell: 
      args:
-        cmd: npm install
+        cmd: /home/connecto/.nvm/versions/node/v8.15.0/bin/npm install
         chdir: "{{ path_api }}" 
         executable: /bin/bash
-     become_user: abhinav
+     become_user: connecto
      become: yes
 
