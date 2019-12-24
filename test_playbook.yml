@@ -8,7 +8,7 @@
         msg: "{{ lookup('env','PATH') }} is an environment variable"   
      become_user: connecto
      become: yes
-     
+
    # - name: Running npm install in directory "{{ path }} and {{ repo_dir }}/lib as well"
    #   command: npm install
    #   args:
@@ -38,7 +38,7 @@
      become: yes
 
    - name: npm command
-     shell: npm install
+     shell: echo $PATH
      args:
         chdir: "{{ path }}" 
         executable: /bin/bash
