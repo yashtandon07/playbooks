@@ -5,10 +5,15 @@
     path: /data/codebase/connecto/api
   tasks:
    - debug:
-        msg: "{{ lookup('env','HOME') }} is an environment variable"   
+        msg: "{{ lookup('env','HOME') }} is HOME directory"   
      become_user: connecto
      become: yes
 
+
+   - debug:
+        msg: "{{ ansible_env.PATH }} PATH Variable"   
+     become_user: connecto
+     become: yes
 
    # - name: Running npm install in directory "{{ path }} and {{ repo_dir }}/lib as well"
    #   command: npm install
