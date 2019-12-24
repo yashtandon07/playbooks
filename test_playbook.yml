@@ -3,10 +3,10 @@
     test: "Test Successfull"
     repo_dir: /data/codebase/connecto
     path: /data/codebase/connecto/api
-  remote_user: connecto
-  become: yes
   tasks:
    - debug:
+     remote_user: connecto
+     become: yes
         msg: "{{ lookup('env','PATH') }} is an environment variable"   
           
    # - name: Running npm install in directory "{{ path }} and {{ repo_dir }}/lib as well"
@@ -27,21 +27,21 @@
         version: master
         accept_hostkey: yes
         key_file: /home/connecto/.ssh/id_rsa
-     #become_user: connecto
-     #become: yes
+     become_user: connecto
+     become: yes
 
    - name: switching branch to master branch
      command: git checkout master
      args:
         chdir: "{{ path }}"
-     #become_user: connecto
-     #become: yes
+     become_user: connecto
+     become: yes
 
    - name: npm command
      shell: npm install
      args:
         chdir: "{{ path }}" 
         executable: /bin/bash
-     #become_user: connecto
-     #become: yes
+     become_user: connecto
+     become: yes
 
