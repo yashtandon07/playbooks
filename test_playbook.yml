@@ -15,6 +15,12 @@
      become_user: connecto
      become: yes
 
+   
+   - debug:
+        msg: "{{ lookup('env','PATH') }} ENV PATH Variable"   
+     become_user: connecto
+     become: yes
+
    # - name: Running npm install in directory "{{ path }} and {{ repo_dir }}/lib as well"
    #   command: npm install
    #   args:
