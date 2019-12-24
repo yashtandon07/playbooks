@@ -62,4 +62,4 @@
         executable: /bin/bash
      become_user: connecto
      become: yes
-
+     ignore_errors: true
