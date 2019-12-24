@@ -58,8 +58,8 @@
         cmd: npm install
         chdir: "{{ path }}" 
         executable: /bin/bash
-     become_user: connecto
-     become: yes
      environment: 
         PATH: '{{ ansible_env.PATH }}:/home/connecto/.nvm/versions/node/v8.15.0/bin/npm'
+     become_user: connecto
+     become: yes
 
