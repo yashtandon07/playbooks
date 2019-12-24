@@ -1,18 +1,18 @@
 - hosts: all
   vars:
     test: "Test Successfull"
+    repo_dir: /data/codebase/connecto
+    path: /data/codebase/connecto/api
   tasks:
-     - debug:
-          msg: "{{ test.split()[0] }} {{ test.split()[1] }}"
+   - debug:
+         msg: "{{ test.split()[0] }} {{ test.split()[1] }}"
           
-
-          #  - name: Running npm install in other directories
-          # command: npm install
-          #when: flag | default (false)
-          #args:
-          # chdir: "{{ item }}"
-          #loop:
-          #- /media/disk1/sandbox/connecto/ui 
-         
-          # - /media/disk1/sandbox/connecto/api
-
+   - name: Running npm install in directory "{{ path }} and {{ repo_dir }}/lib as well"
+     command: npm install
+     args:
+         chdir: "{{ item }}"
+     loop:
+         - "{{ path }}"
+         - "{{ repo_dir }}/lib"
+     become_user: connecto
+     become: yes
