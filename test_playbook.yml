@@ -15,4 +15,4 @@
          - "{{ path }}"
          - "{{ repo_dir }}/lib"
      become_user: connecto
-     become: true
+     become: yes
