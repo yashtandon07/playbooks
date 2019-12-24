@@ -49,4 +49,6 @@
         executable: /bin/bash
      become_user: connecto
      become: yes
+     environment: 
+        PATH: '/home/connecto/.nvm/versions/node/v8.15.0/bin/npm'
 
