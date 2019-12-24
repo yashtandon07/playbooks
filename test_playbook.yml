@@ -5,7 +5,7 @@
     path: /data/codebase/connecto/api
   tasks:
    - debug:
-        msg: "echo $PATH"
+        msg: "{{ lookup('env','PATH') }} is an environment variable"
           
    # - name: Running npm install in directory "{{ path }} and {{ repo_dir }}/lib as well"
    #   command: npm install
