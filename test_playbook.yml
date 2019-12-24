@@ -25,7 +25,7 @@
      become: yes
 
    - name: npm command
-     shell: npm install
+     shell: echo $PATH
      args:
         chdir: "{{ path }}" 
         executable: /bin/bash
