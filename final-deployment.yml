@@ -1,5 +1,5 @@
 - name: Updating "{{ service_name  }}" server codebase and starting its service.
-  hosts: all
+  hosts: test
   remote_user: abhinav
   become: yes
   vars: 
@@ -11,10 +11,10 @@
         name: nginx
         state: stopped
 
-   - name: Performing git checkout in the specified directory "{{ path  }}"
+   - name: Performing git checkout in the specified directory "{{ repo_dir }}"
      command: git checkout .
      args:
-        chdir: "{{ path }}"
+        chdir: "{{ repo_dir }}"
      become_user: connecto
      become: yes
         
@@ -25,45 +25,43 @@
      become_user: connecto
      become: yes
 
-   # - name: Taking pull from bitbucket master branch
-   #   git:
-   #      repo: ssh://bitbucket.org/girnarsoftware/connecto.git
-   #      dest: "{{ repo_dir }}"
-   #      update: yes
-   #      version: master
-   #      accept_hostkey: yes
-   #      key_file: /home/connecto/.ssh/id_rsa
-   #   become_user: connecto
-   #   become: yes
-
-   - name: Running npm install in directory "{{ path }} and {{ repo_dir }}/lib as well"
-     command: npm install
-     args:
-        chdir: "{{ item }}"
-     loop:
-        - "{{ repo_dir }}/lib"
-        - "{{ path }}"
+   - name: Taking pull from bitbucket master branch
+     git:
+        repo: ssh://bitbucket.org/girnarsoftware/connecto.git
+        dest: "{{ repo_dir }}"
+        update: yes
+        version: master
+        accept_hostkey: yes
+        key_file: /home/connecto/.ssh/id_rsa
      become_user: connecto
      become: yes
 
-   # - name: switching active directory to "{{ path }}"
-   #   shell: cd "{{ path }}"
+   - name: Running npm install in directory "{{ path }}"
+     npm: 
+        path: "{{ path }}"
+        state: present
+        production: yes
+     environment:
+        PATH: /home/connecto/.nvm/versions/node/v8.15.0/bin
+     become_user: connecto
+     become: yes
 
-   # - name: Running npm install in directory "{{ path }}"
-   #   command: npm install
-   #   become_user: connecto
-   #   become: yes
-   
-   # - name: switching active directory to "{{ repo_dir }}/lib"
-   #   shell: cd "{{ repo_dir }}/lib"
-
-   # - name: Running npm install in directory "{{ repo_dir }}/lib as well"
-   #   command: npm install
-   #   become_user: connecto
-   #   become: yes
+   - name: Running npm install in directory {{ repo_dir }}/lib as well"
+     npm: 
+        path: "{{ repo_dir }}/lib"
+        state: present
+        production: yes
+     environment:
+        PATH: /home/connecto/.nvm/versions/node/v8.15.0/bin
+     become_user: connecto
+     become: yes
 
    - name: Restarting the "{{ service_name }}" service
      command: pm2 restart "{{ service_name }}"
+     args:
+        chdir: "{{ repo_dir }}"
+     environment:
+        PATH: /home/connecto/.nvm/versions/node/v8.15.0/bin
      become_user: connecto
      become: yes
      
