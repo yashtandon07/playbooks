@@ -3,10 +3,10 @@
   become: yes
   tasks:
    
-   - name: npm command
-     npm: 
+   - npm: 
         name: elasticsearch
         path: /data/codebase/connecto/api
+        version: '16.5.0'
         executable: /home/connecto/.nvm/versions/node/v8.15.0/bin/npm
      become_user: connecto
      become: yes
