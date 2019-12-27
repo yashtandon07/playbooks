@@ -1,5 +1,5 @@
 - name: Updating "{{ service_name  }}" server codebase and starting its service.
-  hosts: test
+  hosts: all
   remote_user: abhinav
   become: yes
   vars: 
