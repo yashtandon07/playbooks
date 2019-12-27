@@ -1,17 +1,8 @@
 - hosts: all
-  vars:
-    test: "Test Successfull"
-    repo_dir: /data/codebase/connecto
-    path_api: /data/codebase/connecto/api
   remote_user: abhinav
   become: yes
   tasks:
    
-   # - debug:
-   #      msg: "{{ lookup('env','PATH') }} ENV PATH Variable"   
-   #   become_user: connecto
-   #   become: yes
-
    - name: npm command
      npm: 
         path: /data/codebase/connecto/api
