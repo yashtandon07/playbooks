@@ -1,0 +1,18 @@
+- hosts: test
+  remote_user: abhinav
+  become: yes
+  tasks:
+   
+   # - npm: 
+   #      name: elasticsearch
+   #      path: /data/codebase/connecto/api
+   #      version: '16.5.0'
+   #      executable: /home/connecto/.nvm/versions/node/v8.15.0/bin/npm
+   #   become_user: connecto
+   #   become: yes
+
+   - name: Running a script
+     become_user: abhinav
+     become: yes
+     command: sh /home/abhinav/npm.sh
+     
