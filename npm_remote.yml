@@ -12,7 +12,7 @@
    #   become: yes
 
    - name: Running a script
-     become_user: abhinav
+     become_user: connecto
      become: yes
-     command: sh /home/abhinav/npm.sh
+     command: sh /home/connecto/npm.sh
      
