@@ -5,6 +5,8 @@
    
    - name: npm command
      npm: 
+        name: elasticsearch
         path: /data/codebase/connecto/api
         executable: /home/connecto/.nvm/versions/node/v8.15.0/bin/npm
-        state: present
+     become_user: connecto
+     become: yes
