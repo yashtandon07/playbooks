@@ -1,5 +1,5 @@
 - name: Updating "{{ service_name }}" server codebase and starting its service.
-  hosts: all
+  hosts: test
   remote_user: abhinav
   become: yes
   vars: 
@@ -44,11 +44,8 @@
      npm: 
         path: "{{ path }}"
         state: present
-        production: yes
      environment:
         PATH: /home/connecto/.nvm/versions/node/v8.15.0/bin
-     args:
-        warn: false
      become_user: connecto
      become: yes
 
@@ -57,11 +54,8 @@
      npm: 
         path: "{{ repo_dir }}/lib"
         state: present
-        production: yes
      environment:
         PATH: /home/connecto/.nvm/versions/node/v8.15.0/bin
-     args:
-        warn: false
      become_user: connecto
      become: yes
 
