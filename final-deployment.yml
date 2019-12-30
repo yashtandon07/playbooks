@@ -1,4 +1,4 @@
-- name: Updating "{{ service_name  }}" server codebase and starting its service.
+- name: Updating "{{ service_name }}" server codebase and starting its service.
   hosts: all
   remote_user: abhinav
   become: yes
@@ -11,12 +11,14 @@
         name: nginx
         state: stopped
 
+
    - name: Performing git checkout in the specified directory "{{ repo_dir }}"
      command: git checkout .
      args:
         chdir: "{{ repo_dir }}"
      become_user: connecto
      become: yes
+
         
    - name: switching branch to master branch
      command: git checkout master
@@ -24,6 +26,7 @@
         chdir: "{{ path }}"
      become_user: connecto
      become: yes
+
 
    - name: Taking pull from bitbucket master branch
      git:
@@ -36,6 +39,7 @@
      become_user: connecto
      become: yes
 
+
    - name: Running npm install in directory "{{ path }}"
      npm: 
         path: "{{ path }}"
@@ -43,8 +47,11 @@
         production: yes
      environment:
         PATH: /home/connecto/.nvm/versions/node/v8.15.0/bin
+     args:
+        warn: false
      become_user: connecto
      become: yes
+
 
    - name: Running npm install in directory {{ repo_dir }}/lib as well"
      npm: 
@@ -53,8 +60,11 @@
         production: yes
      environment:
         PATH: /home/connecto/.nvm/versions/node/v8.15.0/bin
+     args:
+        warn: false
      become_user: connecto
      become: yes
+
 
    - name: Restarting the "{{ service_name }}" service
      command: pm2 restart "{{ service_name }}"
@@ -64,6 +74,7 @@
         PATH: /home/connecto/.nvm/versions/node/v8.15.0/bin
      become_user: connecto
      become: yes
+
      
    - name: starting nginx service
      service:
