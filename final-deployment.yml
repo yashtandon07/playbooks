@@ -15,22 +15,24 @@
 
 
    - name: Performing git checkout in the specified directory "{{ repo_dir }}"
+     become_user: connecto
+     become: yes
      command: git checkout .
      args:
         chdir: "{{ repo_dir }}"
-     become_user: connecto
-     become: yes
-
+     
         
    - name: switching branch to master branch
+     become_user: connecto
+     become: yes
      command: git checkout master
      args:
         chdir: "{{ path }}"
-     become_user: connecto
-     become: yes
 
 
    - name: Taking pull from bitbucket master branch
+     become_user: connecto
+     become: yes
      git:
         repo: ssh://bitbucket.org/girnarsoftware/connecto.git
         dest: "{{ repo_dir }}"
@@ -38,9 +40,7 @@
         version: master
         accept_hostkey: yes
         key_file: /home/connecto/.ssh/id_rsa
-     become_user: connecto
-     become: yes
-
+     
 
    - name: Switching to node version {{ node_version }} as specified by user
      become_user: connecto
@@ -51,35 +51,35 @@
 
 
    - name: Running npm install in directory "{{ path }}"
+     become_user: connecto
+     become: yes
      npm: 
         path: "{{ path }}"
         state: present
      environment:
         PATH: /home/connecto/.nvm/versions/node/v{{ node_version }}/bin
-     become_user: connecto
-     become: yes
 
 
    - name: Running npm install in directory {{ repo_dir }}/lib as well"
+     become_user: connecto
+     become: yes
      npm: 
         path: "{{ repo_dir }}/lib"
         state: present
      environment:
         PATH: /home/connecto/.nvm/versions/node/v{{ node_version }}/bin
      when: npmFlag | default(False)
-     become_user: connecto
-     become: yes
 
 
    - name: Restarting the "{{ service_name }}" service
+     become_user: connecto
+     become: yes
      command: pm2 restart "{{ service_name }}"
      args:
         chdir: "{{ repo_dir }}"
      environment:
         PATH: /home/connecto/.nvm/versions/node/v{{ node_version }}/bin
-     become_user: connecto
-     become: yes
-
+     
      
    - name: starting nginx service
      service:
