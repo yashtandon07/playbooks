@@ -4,6 +4,7 @@
   become: yes
   vars: 
     repo_dir: /data/codebase/connecto
+    node_version: 8.15.0
   tasks:
 
    - name: stopping nginx service
@@ -41,12 +42,20 @@
      become: yes
 
 
+   - name: Switching to node version {{ node_version }} as specified by user
+     become_user: connecto
+     become: yes
+     shell: "source /home/connecto/.nvm/nvm.sh && nvm use {{ node_version }}" 
+     args: 
+        executable: /bin/bash
+
+
    - name: Running npm install in directory "{{ path }}"
      npm: 
         path: "{{ path }}"
         state: present
      environment:
-        PATH: /home/connecto/.nvm/versions/node/v8.15.0/bin
+        PATH: /home/connecto/.nvm/versions/node/v{{ node_version }}/bin
      become_user: connecto
      become: yes
 
@@ -56,7 +65,7 @@
         path: "{{ repo_dir }}/lib"
         state: present
      environment:
-        PATH: /home/connecto/.nvm/versions/node/v8.15.0/bin
+        PATH: /home/connecto/.nvm/versions/node/v{{ node_version }}/bin
      when: npmFlag | default(False)
      become_user: connecto
      become: yes
@@ -67,7 +76,7 @@
      args:
         chdir: "{{ repo_dir }}"
      environment:
-        PATH: /home/connecto/.nvm/versions/node/v8.15.0/bin
+        PATH: /home/connecto/.nvm/versions/node/v{{ node_version }}/bin
      become_user: connecto
      become: yes
 
