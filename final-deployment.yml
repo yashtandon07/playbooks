@@ -10,6 +10,7 @@
      service:
         name: nginx
         state: stopped
+     when: nginxFlag | default(False)
 
 
    - name: Performing git checkout in the specified directory "{{ repo_dir }}"
@@ -56,6 +57,7 @@
         state: present
      environment:
         PATH: /home/connecto/.nvm/versions/node/v8.15.0/bin
+     when: npmFlag | default(False)
      become_user: connecto
      become: yes
 
@@ -74,3 +76,4 @@
      service:
         name: nginx
         state: started
+     when: nginxFlag | default(False)
