@@ -5,13 +5,25 @@
   vars: 
     repo_dir: /data/codebase/connecto
     node_version: 8.15.0
+    environment_path: /home/connecto/.nvm/versions/node/v{{ node_version }}/bin
   tasks:
 
-   - name: stopping nginx service
+   - name: Stopping nginx service
      service:
         name: nginx
         state: stopped
      when: nginxFlag | default(False)
+
+
+   - name: Stopping the "{{ service_name }}'s" service
+     become_user: connecto
+     become: yes
+     command: pm2 stop "{{ service_name }}"
+     args:
+        chdir: "{{ repo_dir }}"
+     environment:
+        PATH: "{{ environment_path }}"
+     ignore_errors: true
 
 
    - name: Performing git checkout in the specified directory "{{ repo_dir }}"
@@ -22,7 +34,7 @@
         chdir: "{{ repo_dir }}"
      
         
-   - name: switching branch to master branch
+   - name: Switching branch to master branch
      become_user: connecto
      become: yes
      command: git checkout master
@@ -57,7 +69,7 @@
         path: "{{ path }}"
         state: present
      environment:
-        PATH: /home/connecto/.nvm/versions/node/v{{ node_version }}/bin
+        PATH: "{{ environment_path }}"
 
 
    - name: Running npm install in directory {{ repo_dir }}/lib as well"
@@ -67,20 +79,30 @@
         path: "{{ repo_dir }}/lib"
         state: present
      environment:
-        PATH: /home/connecto/.nvm/versions/node/v{{ node_version }}/bin
+        PATH: "{{ environment_path }}"
      when: npmFlag | default(False)
 
 
-   - name: Restarting the "{{ service_name }}" service
+   - name: Starting the "{{ service_name }}'s" service via pm2
      become_user: connecto
      become: yes
-     command: pm2 restart "{{ service_name }}"
+     command: pm2 start ecosystem.config.js --only {{ service_name.split('-')[0] }} --env={{ service_name.split('-')[1] }} 
      args:
         chdir: "{{ repo_dir }}"
      environment:
-        PATH: /home/connecto/.nvm/versions/node/v{{ node_version }}/bin
+        PATH: "{{ environment_path }}"
      
+
+   - name: Saving pm2's state
+     become_user: connecto
+     become: yes
+     command: pm2 save 
+     args:
+        chdir: "{{ repo_dir }}"
+     environment:
+        PATH: "{{ environment_path }}"
      
+
    - name: starting nginx service
      service:
         name: nginx
