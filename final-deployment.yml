@@ -18,7 +18,7 @@
    - name: Stopping the "{{ service_name }}'s" service
      become_user: connecto
      become: yes
-     command: pm2 stop "{{ service_name }}"
+     command: pm2 stop "{{ service_name }}-production"
      args:
         chdir: "{{ repo_dir }}"
      environment:
@@ -86,7 +86,7 @@
    - name: Starting the "{{ service_name }}'s" service via pm2
      become_user: connecto
      become: yes
-     command: pm2 start ecosystem.config.js --only {{ service_name.split('-')[0] }} --env={{ service_name.split('-')[1] }} 
+     command: pm2 start ecosystem.config.js --only {{ service_name }} --env=production
      args:
         chdir: "{{ repo_dir }}"
      environment:
